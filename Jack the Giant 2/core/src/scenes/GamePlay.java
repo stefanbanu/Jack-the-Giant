@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.stefanbanu.jackthegiant.GameMain;
 
+import buttons.UIHud;
 import clouds.CloudsController;
 import player.Player;
 import utils.GameUtil;
@@ -31,6 +32,8 @@ public class GamePlay implements Screen {
     private Box2DDebugRenderer debugRenderer;
 
     private World world;
+
+    private UIHud uiHud;
 
     private Sprite[] bgs;
     private float lastYPosition;
@@ -55,6 +58,8 @@ public class GamePlay implements Screen {
         box2DCamera.position.set(GameUtil.WIDTH / 2f, GameUtil.HEIGHT / 2f, 0);
 
         debugRenderer = new Box2DDebugRenderer();
+
+        uiHud = new UIHud(game);
 
         world = new World(new Vector2(0, -9.8f), true);
 
@@ -147,6 +152,11 @@ public class GamePlay implements Screen {
         game.getBatch().setProjectionMatrix(mainCamera.combined);
         mainCamera.update();
 
+        game.getBatch().setProjectionMatrix(uiHud.getStage().getCamera().combined);
+        uiHud.getStage().draw();
+        uiHud.getStage().act();
+
+
         player.updatePlayer();
 
         world.step(Gdx.graphics.getDeltaTime(), 6, 2);
@@ -157,7 +167,7 @@ public class GamePlay implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        gameViewport.update(width,height);
     }
 
     @Override

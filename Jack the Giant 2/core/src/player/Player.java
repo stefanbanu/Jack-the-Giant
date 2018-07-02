@@ -49,8 +49,6 @@ public class Player extends Sprite {
         body = world.createBody(bodyDef);
         body.setFixedRotation(true);
 
-        //System.out.println("test");
-
         PolygonShape shape = new PolygonShape();
         shape.setAsBox((getWidth() / 2f - 10) / GameUtil.PPM, (getHeight() / 2f) / GameUtil.PPM);
 

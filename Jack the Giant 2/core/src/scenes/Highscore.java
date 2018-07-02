@@ -1,5 +1,6 @@
 package scenes;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -7,33 +8,30 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.stefanbanu.jackthegiant.GameMain;
 
-import buttons.MainMenuButtons;
+import buttons.HighScoreButtons;
 import utils.GameUtil;
 
-public class MainMenu implements Screen {
+public class Highscore implements Screen {
 
     private GameMain gameMain;
-
     private OrthographicCamera mainCamera;
     private Viewport viewport;
+    private Texture bg;
 
-    private Texture textureBg;
+    private HighScoreButtons highScoreButtons;
 
-    private MainMenuButtons buttons;
-
-    public MainMenu(GameMain gameMain) {
+    public Highscore(GameMain gameMain) {
         this.gameMain = gameMain;
 
         mainCamera = new OrthographicCamera();
         mainCamera.setToOrtho(false, GameUtil.WIDTH, GameUtil.HEIGHT);
-        mainCamera.position.set(GameUtil.WIDTH / 2f, GameUtil.HEIGHT / 2f, 0);
+        mainCamera.position.set(GameUtil.WIDTH / 2, GameUtil.HEIGHT / 2, 0);
 
         viewport = new StretchViewport(GameUtil.WIDTH, GameUtil.HEIGHT, mainCamera);
 
-        textureBg = new Texture("backgrounds/Menu BG.png");
+        bg = new Texture("backgrounds/Highscore BG.png");
 
-        buttons = new MainMenuButtons(gameMain);
-
+        highScoreButtons = new HighScoreButtons(gameMain);
     }
 
     @Override
@@ -46,12 +44,11 @@ public class MainMenu implements Screen {
         GameUtil.clearScreen();
 
         gameMain.getBatch().begin();
-        gameMain.getBatch().draw(textureBg, 0, 0);
-
+        gameMain.getBatch().draw(bg, 0, 0);
         gameMain.getBatch().end();
 
-        gameMain.getBatch().setProjectionMatrix(buttons.getStage().getCamera().combined);
-        buttons.getStage().draw();
+        gameMain.getBatch().setProjectionMatrix(highScoreButtons.getStage().getCamera().combined);
+        highScoreButtons.getStage().draw();
     }
 
     @Override
@@ -76,7 +73,7 @@ public class MainMenu implements Screen {
 
     @Override
     public void dispose() {
-        textureBg.dispose();
-        buttons.getStage().dispose();
+        bg.dispose();
+        highScoreButtons.getStage().dispose();
     }
 }

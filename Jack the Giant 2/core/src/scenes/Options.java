@@ -7,10 +7,11 @@ import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.stefanbanu.jackthegiant.GameMain;
 
-import buttons.MainMenuButtons;
+import buttons.OptionsButtons;
 import utils.GameUtil;
 
-public class MainMenu implements Screen {
+public class Options implements Screen {
+
 
     private GameMain gameMain;
 
@@ -19,9 +20,9 @@ public class MainMenu implements Screen {
 
     private Texture textureBg;
 
-    private MainMenuButtons buttons;
+    private OptionsButtons optionsButtons;
 
-    public MainMenu(GameMain gameMain) {
+    public Options(GameMain gameMain) {
         this.gameMain = gameMain;
 
         mainCamera = new OrthographicCamera();
@@ -30,10 +31,9 @@ public class MainMenu implements Screen {
 
         viewport = new StretchViewport(GameUtil.WIDTH, GameUtil.HEIGHT, mainCamera);
 
-        textureBg = new Texture("backgrounds/Menu BG.png");
+        textureBg = new Texture("backgrounds/Options BG.png");
 
-        buttons = new MainMenuButtons(gameMain);
-
+        optionsButtons = new OptionsButtons(gameMain);
     }
 
     @Override
@@ -50,8 +50,8 @@ public class MainMenu implements Screen {
 
         gameMain.getBatch().end();
 
-        gameMain.getBatch().setProjectionMatrix(buttons.getStage().getCamera().combined);
-        buttons.getStage().draw();
+        gameMain.getBatch().setProjectionMatrix(optionsButtons.getStage().getCamera().combined);
+        optionsButtons.getStage().draw();
     }
 
     @Override
@@ -77,6 +77,6 @@ public class MainMenu implements Screen {
     @Override
     public void dispose() {
         textureBg.dispose();
-        buttons.getStage().dispose();
+        optionsButtons.getStage().dispose();
     }
 }
